@@ -1,0 +1,12 @@
+const mongoose = require('mongoose');
+
+const CollectionSchema = mongoose.Schema({
+    name: {
+        type: String,
+        required: [true, "Please provide Collection name"],
+        trim: true,
+        maxLength: [120, "Collection Name should not be more than 120 characters"],
+    }
+}, { timestamps: true });
+
+module.exports = mongoose.model("Collection", CollectionSchema);
