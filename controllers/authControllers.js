@@ -49,7 +49,7 @@ const signUp = async (req, res) => {
 
 /******************************************************
  * @LOGIN
- * @route http://localhost:5000/api/auth/login
+ * @route http://localhost:8000/api/auth/login
  * @description User signIn Controller for loging new user
  * @parameters  email, password
  * @returns User Object
@@ -99,14 +99,14 @@ const signIn = async(req, res)=> {
 
 /******************************************************
  * @LOGOUT
- * @route http://localhost:5000/api/auth/logout
+ * @route http://localhost:8000/api/auth/logout
  * @description User logout bby clearing user cookies
  * @parameters  
  * @returns success message
  ******************************************************/
 const logout = async (req, res) => {
     try {
-        res.clearCookie();
+        res.clearCookie('token');
         res.status(200).json({
             success: true,
             message: "Logged Out"
@@ -118,4 +118,29 @@ const logout = async (req, res) => {
 }
 
 
-module.exports = {signIn, signUp, logout}
+/******************************************************
+ * @GET_PROFILE
+ * @REQUEST_TYPE GET
+ * @route http://localhost:8000/api/auth/profile
+ * @description check for token and populate req.user
+ * @parameters 
+ * @returns User Object
+ ******************************************************/
+const getProfile = async ( req, res ) => {
+    try {
+        const {user} = req;
+        if(!user){
+            return res.status(400).json({"message": "User not found"});
+        }
+
+        res.status(200).json({
+            success: true,
+            user
+        });
+    } catch (err) {
+        console.log(err);
+        console.log(err.message);
+    }
+}
+
+module.exports = {signIn, signUp, logout, getProfile}
