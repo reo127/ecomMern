@@ -5,13 +5,13 @@ const Product = require('../schema/productSchema');
  * @Add Product
  * @route http://localhost:8000/api/admin/product
  * @description Product Controller for admin to add new products
- * @parameters name, price, description, photo, stock, sold
+ * @parameters name, price, description, photo, stock, sold, catagory
  * @returns Product Object adn success massage
  ******************************************************/
 const addProduct = async (req, res) => {
     try {
-        const { name, price, description, photos, stock } = req.body;
-        if (!(name, price, description, photos, stock)) {
+        const { name, price, description, photos, stock, catagory } = req.body;
+        if (!(name, price, description, photos, stock, catagory)) {
             return res.status(400).json({ massage: "All fileds are required" });
         }
 
@@ -20,7 +20,8 @@ const addProduct = async (req, res) => {
             price,
             description,
             photos,
-            stock
+            stock,
+            catagory
         });
 
         res.status(200).json({
@@ -39,14 +40,14 @@ const addProduct = async (req, res) => {
  * @Update Product
  * @route http://localhost:8000/api/admin/updateproduct
  * @description updateProduct Controller for admin to Eadit an exciting products
- * @parameters name, price, description, photo, stock, sold, produtId
+ * @parameters name, price, description, photo, stock, sold, produtId, catagory
  * @returns success massage
  ******************************************************/
 
 const updateProduct = async (req,res) => {
     try {
-        const { name, price, description, photos, stock, produtId } = req.body;
-        if (!(name, price, description, photos, stock)) {
+        const { name, price, description, photos, stock, catagory, produtId } = req.body;
+        if (!(name, price, description, photos, stock, catagory)) {
             return res.status(400).json({ massage: "All fileds are required" });
         }
 
@@ -58,7 +59,8 @@ const updateProduct = async (req,res) => {
                 "price": price,
                 "description": description,
                 "photos":photos,
-                "stock": stock
+                "stock": stock,
+                "catagory": catagory
             }}
         );
 

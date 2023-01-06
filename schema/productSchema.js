@@ -35,6 +35,11 @@ const productSchema = mongoose.Schema({
     collectionId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Collection"
+    },
+    catagory : {
+        type: String,
+        enum : ["electronic", "grocery", "book", "home", "fashion", "toy"],
+        required: true
     }
 }, { timestamps: true });
 
