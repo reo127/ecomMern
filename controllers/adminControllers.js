@@ -36,11 +36,11 @@ const addProduct = async (req, res) => {
 
 
 /******************************************************
- * @Eadit Product
- * @route http://localhost:8000/api/admin/product
- * @description Product Controller for admin to Eadit an exciting products
+ * @Update Product
+ * @route http://localhost:8000/api/admin/updateproduct
+ * @description updateProduct Controller for admin to Eadit an exciting products
  * @parameters name, price, description, photo, stock, sold, produtId
- * @returns Product Object adn success massage
+ * @returns success massage
  ******************************************************/
 
 const updateProduct = async (req,res) => {
@@ -82,5 +82,48 @@ const updateProduct = async (req,res) => {
 }
 
 
+/******************************************************
+ * @Delete Product
+ * @route http://localhost:8000/api/admin/deleteproduct
+ * @description deleteProduct Controller for admin to delete an exciting products
+ * @parameters produtId
+ * @returns success massage
+ ******************************************************/
+const deleteProduct = async (req, res) => {
+    try {
+        const { produtId } = req.body;
+        console.log(produtId)
+        const deleteProduct = await Product.findByIdAndDelete({_id: produtId});
 
-module.exports = { addProduct, updateProduct };
+        res.status(200).json({
+            success: true,
+            deleteProduct
+        });
+
+    } catch (err) {
+        console.log(err);
+        console.log(err.message);
+    }
+}
+
+
+/******************************************************
+ * @GET All Products
+ * @route http://localhost:8000/api/admin/getallProducts
+ * @description getAllProducts Controller for admin to fetch all exciting products
+ * @parameters 
+ * @returns all products object
+ ******************************************************/
+const getAllProduct = async (req, res) => {
+    try {
+
+        const allProduct = await Product.find();
+        res.status(200).json({ allProduct });
+
+    } catch (err) {
+        console.log(err);
+        console.log(err.message);
+    }
+}
+
+module.exports = { addProduct, updateProduct, deleteProduct, getAllProduct };

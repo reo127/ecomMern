@@ -4,7 +4,7 @@ const router = express();
 const { signIn, signUp, logout, getProfile } = require('../controllers/authControllers');
 const { isLoggedIn } = require('../middlewares/isLoggedIn');
 const { isAdmin } = require('../middlewares/isAdmin');
-const { addProduct, updateProduct } = require('../controllers/adminControllers');
+const { addProduct, updateProduct, deleteProduct, getAllProduct } = require('../controllers/adminControllers');
 
 // Auth routes
 router.post('/auth/signup', signUp);
@@ -15,5 +15,7 @@ router.get('/auth/profile', isLoggedIn, getProfile);
 // Admin routers
 router.post('/admin/addproduct', isLoggedIn, isAdmin, addProduct);
 router.put('/admin/updateProduct', isLoggedIn, isAdmin, updateProduct);
+router.delete('/admin/deleteproduct', isLoggedIn, isAdmin, deleteProduct);
+router.get('/admin/getallproducts', isLoggedIn, isAdmin, getAllProduct);
 
 module.exports = router;
