@@ -5,7 +5,7 @@ const { signIn, signUp, logout, getProfile } = require('../controllers/authContr
 const { isLoggedIn } = require('../middlewares/isLoggedIn');
 const { isAdmin } = require('../middlewares/isAdmin');
 const { addProduct, updateProduct, deleteProduct, getAllProduct } = require('../controllers/adminControllers');
-const { orderProduct } = require('../controllers/orderController');
+const { orderProduct, updateOrder, deleteOrder, allOrders } = require('../controllers/orderController');
 
 // Auth routes
 router.post('/auth/signup', signUp);
@@ -21,5 +21,9 @@ router.get('/admin/getallproducts', isLoggedIn, isAdmin, getAllProduct);
 
 // order router
 router.post('/orders/orderproduct', isLoggedIn, orderProduct);
+router.put('/orders/updateorder/:status/:orderId', isLoggedIn, updateOrder);
+router.delete('/orders/deleteorder/:orderId', isLoggedIn, deleteOrder);
+router.get('/orders/allorders', isLoggedIn, isAdmin, allOrders);
+
 
 module.exports = router;
