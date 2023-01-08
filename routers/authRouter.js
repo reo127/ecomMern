@@ -6,7 +6,7 @@ const { isLoggedIn } = require('../middlewares/isLoggedIn');
 const { isAdmin } = require('../middlewares/isAdmin');
 const { addProduct, updateProduct, deleteProduct, getAllProduct } = require('../controllers/adminControllers');
 const { orderProduct, updateOrder, deleteOrder, allOrders } = require('../controllers/orderController');
-const { getProduct, addToCart } = require('../controllers/productController');
+const { getProduct, addToCart, deleteCart } = require('../controllers/productController');
 
 // Auth routes
 router.post('/auth/signup', signUp);
@@ -32,11 +32,10 @@ router.put('/orders/updateorder/:status/:orderId', isLoggedIn, updateOrder);
 router.delete('/orders/deleteorder/:orderId', isLoggedIn, deleteOrder);
 router.get('/orders/allorders', isLoggedIn, isAdmin, allOrders);
 
-
-// Todo 2): Create api to add product to cart array: api/cart/:userId/:productId 
+// cart
 router.post('/cart/:userId/:productId', isLoggedIn, addToCart);
+router.post('/cart/removefromcart/:userId/:productId', isLoggedIn, deleteCart);
 
-// Todo 3): Create api to update product to cart array: api/cart/:userId/:productId 
 
 
 
