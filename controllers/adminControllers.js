@@ -14,7 +14,7 @@ const addProduct = async (req, res) => {
         if (!(name, price, description, photos, stock, catagory)) {
             return res.status(400).json({ massage: "All fileds are required" });
         }
-
+console.log(cart);
         const product = await Product.create({
             name,
             price,
