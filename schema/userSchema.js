@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const AuthRoles = require('../utils/authRoles');
 
 const userSchema = mongoose.Schema({
-    name : {
+    name: {
         type: String,
         required: [true, "Name is required"],
         maxLength: [50, "Name must be less than 50"]
@@ -27,8 +27,14 @@ const userSchema = mongoose.Schema({
     },
     cart: [
         {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Product"
+            cart: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "Product"
+            },
+            count: {
+                type: Number,
+                default: 0
+            }
         }
     ],
     forgotPasswordToken: String,
@@ -37,24 +43,24 @@ const userSchema = mongoose.Schema({
 
 
 // Encrypt password 
-userSchema.pre('save', async function(next){
-    if(!this.isModified("password")) return next();
+userSchema.pre('save', async function (next) {
+    if (!this.isModified("password")) return next();
     this.password = await bcrypt.hash(this.password, 10)
     next()
 });
 
 userSchema.method = {
     // Compare Password
-    comparePassword : async function(comformPassword){
+    comparePassword: async function (comformPassword) {
         return await bcrypt.compare(comformPassword, this.password);
     },
 
     // Create JWT token
-    getjwt : async function(){
+    getjwt: async function () {
         return jwt.sign(
-            {_id: this._id, role: this.role},
+            { _id: this._id, role: this.role },
             process.env.JWT_EXPIRY,
-            {expiresIn: process.env.JWT_EXPIRY}
+            { expiresIn: process.env.JWT_EXPIRY }
         );
     },
 
@@ -63,9 +69,9 @@ userSchema.method = {
 }
 
 
-userSchema.method.comparePassword = async function(comformPassword) {
+userSchema.method.comparePassword = async function (comformPassword) {
     console.log('came in compair passowrd')
     return await bcrypt.compare(comformPassword, this.password);
 }
 
-module.exports =  mongoose.model("User", userSchema);
+module.exports = mongoose.model("User", userSchema);

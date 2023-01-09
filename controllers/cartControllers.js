@@ -5,16 +5,23 @@ const User = require('../schema/userSchema');
  * @Add to cart
  * @route http://localhost:8000/api/cart/:userId/:productId
  * @description addToCart Controller to add product to cart
- * @parameters productId, userId
+ * @parameters productId, userId, count
  * @returns success massage 
  ******************************************************/
 const addToCart = async (req, res) => {
     try {
-        const { userId, productId } = req.params;
+        const { userId, productId, count } = req.params;
         console.log(userId, productId)
         const userCart = await User.updateOne(
             { _id: userId },
-            { $push: { cart: productId } }
+            {
+                $push: {
+                    cart: {
+                        productId: productId,
+                        count: count
+                    }
+                }
+            }
         );
 
         res.status(200).json({ userCart });
@@ -31,13 +38,18 @@ const addToCart = async (req, res) => {
  * @parameters productId, userId
  * @returns success massage 
  ******************************************************/
-const deleteCart = async (req, res) => {
+const removeFromCart = async (req, res) => {
+    console.log("delete cart");
     try {
-        const {userId, productId} = req.params;
+        console.log('delete  hare Cart')
+        const { userId, productId } = req.params;
+        console.log(userId, productId);
+
         const deleteCart = await User.updateOne(
-            {_id: userId},
-            {$pull : {cart: productId}}
+            { _id: userId },
+            { $pull: { cart: { _id: productId } } }
         );
+
 
         res.status(200).json({ deleteCart, massege: "success" });
     } catch (err) {
@@ -47,4 +59,4 @@ const deleteCart = async (req, res) => {
 }
 
 
-module.exports = { addToCart, deleteCart };
+module.exports = { addToCart, removeFromCart };
