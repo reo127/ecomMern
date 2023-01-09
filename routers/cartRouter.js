@@ -2,7 +2,7 @@
 const express = require('express');
 const router = express();
 const { isLoggedIn } = require('../middlewares/isLoggedIn');
-const { addToCart, deleteCart } = require('../controllers/productController');
+const { addToCart, deleteCart } = require('../controllers/cartControllers');
 
 
 // cart
