@@ -8,8 +8,8 @@ try {
     ).then(console.log('DB Connected'))
     .catch(err => console.log(err))
 
-    app.listen(process.env.PORT, ()=>{
-        console.log(`Listening on PORT ${process.env.PORT}`);
+    app.listen(process.env.PORT || 8000, ()=>{
+        console.log(`Listening on PORT ${process.env.PORTm || 8000}`);
     })
 } catch (err) {
     console.log(err);
