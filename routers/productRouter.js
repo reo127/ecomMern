@@ -12,7 +12,7 @@ router.delete('/admin/deleteproduct', isLoggedIn, isAdmin, deleteProduct);
 
 
 // User product routers
-router.get('/products/getallproducts', isLoggedIn, getAllProduct);
+router.get('/products/getallproducts', getAllProduct);
 router.get('/product/:productId', isLoggedIn, getProduct);
 
 
