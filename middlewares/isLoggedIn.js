@@ -9,7 +9,7 @@ const isLoggedIn = async (req, res, next) => {
         }
 
         if(!token){
-            return res.status(400).json("NOt authorized to access this route");
+            return res.status(400).json("Not authorized to access this route");
         }
 
         const jwtpayload = await jwt.verify(token, process.env.JWT_SERECT);
