@@ -22,5 +22,15 @@ const getProduct = async (req, res) => {
     }
 }
 
+const getProductByCatagory = async (req, res) => {
+    try {
+        const catagoryProduct = await Product.find({ catagory: req.params.catagory })
+        res.status(200).json({ message: 'success', catagoryProduct })
+    } catch (err) {
+        console.log(err);
+        console.log(err.message)
+    }
+}
 
-module.exports = { getProduct }
+
+module.exports = { getProduct, getProductByCatagory }

@@ -3,7 +3,7 @@ const router = express();
 const { isLoggedIn } = require('../middlewares/isLoggedIn');
 const { isAdmin } = require('../middlewares/isAdmin');
 const { addProduct, updateProduct, deleteProduct, getAllProduct } = require('../controllers/adminControllers');
-const { getProduct } = require('../controllers/productController');
+const { getProduct, getProductByCatagory } = require('../controllers/productController');
 
 // Admin product routers
 router.post('/admin/addproduct', isLoggedIn, isAdmin, addProduct);
@@ -13,6 +13,7 @@ router.delete('/admin/deleteproduct', isLoggedIn, isAdmin, deleteProduct);
 
 // User product routers
 router.get('/products/getallproducts', getAllProduct);
+router.get('/products/:caragory', getProductByCatagory);
 router.get('/product/:productId', isLoggedIn, getProduct);
 
 
