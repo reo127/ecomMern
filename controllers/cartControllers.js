@@ -1,4 +1,5 @@
 const User = require('../schema/userSchema');
+const Product = require('../schema/productSchema');
 
 
 /******************************************************
@@ -10,15 +11,27 @@ const User = require('../schema/userSchema');
  ******************************************************/
 const addToCart = async (req, res) => {
     try {
-        const { userId, productId, count } = req.params;
-        console.log(userId, productId)
+        const { userId, productId } = req.params;
+
+        // Find products details
+        const prod = await Product.findById({_id: productId})
+        if(!prod){
+           return res.status(400).json({"massage": "Did't find the product "})
+        }
+
         const userCart = await User.updateOne(
             { _id: userId },
             {
                 $push: {
                     cart: {
                         productId: productId,
-                        count: count
+                        name: prod.name,
+                        price: prod.price,
+                        description: prod.description,
+                        photos: prod.photos,
+                        stock: prod.stock,
+                        sold: prod.sold,
+                        catagory: prod.catagory
                     }
                 }
             }
