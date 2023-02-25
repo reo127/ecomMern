@@ -18,7 +18,11 @@ const productSchema = mongoose.Schema({
     },
     photos: [
         {
-            secure_url: {
+            path: {
+                type: String,
+                required: true
+            },
+            fieldname: {
                 type: String,
                 required: true
             }

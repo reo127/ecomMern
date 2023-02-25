@@ -7,6 +7,8 @@ const authRouter = require('./routers/authRouter');
 const productRouter = require('./routers/productRouter');
 const orderRouter = require('./routers/orderRouter');
 const cartRouter = require('./routers/cartRouter');
+const multer = require('multer')
+const upload = multer({ dest: 'uploads/' })
 
 
 app.use(express.json())
@@ -19,9 +21,11 @@ app.use(cors({
     "withCredentials": true 
 }))
 app.use(cookeParser())
+app.use('/uploads', express.static('uploads'));
+
 
 app.use('/api', authRouter);
-app.use('/api', productRouter);
+app.use('/api', upload.array('photos'), productRouter);
 app.use('/api', orderRouter);
 app.use('/api', cartRouter);
 

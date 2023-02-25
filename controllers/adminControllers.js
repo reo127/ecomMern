@@ -11,6 +11,7 @@ const Product = require('../schema/productSchema');
 const addProduct = async (req, res) => {
     try {
         const { name, price, description, photos, stock, catagory } = req.body;
+        console.log(req.files);
         if (!(name, price, description, photos, stock, catagory)) {
             return res.status(400).json({ massage: "All fileds are required" });
         }
@@ -19,7 +20,7 @@ const addProduct = async (req, res) => {
             name,
             price,
             description,
-            photos,
+            photos: req.files,
             stock,
             catagory
         });
