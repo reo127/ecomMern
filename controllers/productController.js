@@ -22,6 +22,14 @@ const getProduct = async (req, res) => {
     }
 }
 
+
+/******************************************************
+ * @Get products by Catagory
+ * @route http://localhost:8000/api/products/:catagory
+ * @description getProductByCatagory Controller to fetch products by catagory
+ * @parameters catagory
+ * @returns success massage and catagoryProduct object
+ ******************************************************/
 const getProductByCatagory = async (req, res) => {
     try {
         const catagoryProduct = await Product.find({ catagory: req.params.catagory })

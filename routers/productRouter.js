@@ -13,8 +13,8 @@ router.delete('/admin/deleteproduct', isLoggedIn, isAdmin, deleteProduct);
 
 // User product routers
 router.get('/products/getallproducts', getAllProduct);
-router.get('/products/:caragory', getProductByCatagory);
-router.get('/product/:productId', isLoggedIn, getProduct);
+router.get('/products/:catagory', getProductByCatagory);
+router.get('/product/:productId', getProduct);
 
 
 module.exports = router;
