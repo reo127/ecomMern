@@ -25,6 +25,21 @@ const userSchema = mongoose.Schema({
         enum: Object.values(AuthRoles),
         default: AuthRoles.USER
     },
+    phone: {
+        type: Number
+    },
+    address : {
+        type: String
+    },
+    city : {
+        type: String
+    },
+    state : {
+        type: String
+    },
+    zip: {
+        type: Number
+    },
     cart: [
         {
             name: {

@@ -143,4 +143,45 @@ const getProfile = async ( req, res ) => {
     }
 }
 
-module.exports = {signIn, signUp, logout, getProfile}
+
+/******************************************************
+ * @GET_PROFILE
+ * @REQUEST_TYPE GET
+ * @route http://localhost:8000/api/auth/profile
+ * @description check for token and populate req.user
+ * @parameters 
+ * @returns User Object
+ ******************************************************/
+const updateProfile = async( req, res ) => {
+    try {
+        const {phone, address, city, state, zip} = req.body;
+        const updateProduct = await User.updateMany(
+            {_id: req.user._id},
+            {$set: {
+                "address" : address,
+                "phone": phone,
+                "city": city,
+                "state": state,
+                "zip": zip
+            }}
+        )
+
+        if(!(updateProduct.modifiedCount > 0 )){
+            res.status(400).json({
+                success: false,
+                updateProduct
+            });
+            return;
+        }
+
+        res.status(200).json({
+            success: true,
+            updateProduct
+        });
+    } catch (err) {
+        console.log(err);
+        console.log(err.message);
+    }
+}
+
+module.exports = {signIn, signUp, logout, getProfile, updateProfile}
