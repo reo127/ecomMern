@@ -8,7 +8,7 @@ const { getProduct, getProductByCatagory } = require('../controllers/productCont
 // Admin product routers
 router.post('/admin/addproduct', isLoggedIn, isAdmin, addProduct);
 router.put('/admin/updateProduct', isLoggedIn, isAdmin, updateProduct);
-router.delete('/admin/deleteproduct', isLoggedIn, isAdmin, deleteProduct);
+router.delete('/admin/deleteproduct/:productId', isLoggedIn, isAdmin, deleteProduct);
 
 
 // User product routers

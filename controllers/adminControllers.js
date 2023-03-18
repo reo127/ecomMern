@@ -48,19 +48,19 @@ const addProduct = async (req, res) => {
 
 const updateProduct = async (req,res) => {
     try {
-        const { name, price, description, photos, stock, catagory, produtId } = req.body;
+        const { name, price, description, photos, stock, catagory, proudctId } = req.body;
         if (!(name, price, description, photos, stock, catagory)) {
             return res.status(400).json({ massage: "All fileds are required" });
         }
 
         // update document in mongodb
         const updateProduct = await Product.updateMany(
-            {_id: produtId},
+            {_id: proudctId},
             {$set:{
                 "name": name,
                 "price": price,
                 "description": description,
-                "photos":photos,
+                // "photos":photos,
                 "stock": stock,
                 "catagory": catagory
             }}
@@ -72,6 +72,7 @@ const updateProduct = async (req,res) => {
                 success: false,
                 updateProduct
             });
+            return;
         }
 
         res.status(200).json({
@@ -95,9 +96,8 @@ const updateProduct = async (req,res) => {
  ******************************************************/
 const deleteProduct = async (req, res) => {
     try {
-        const { produtId } = req.body;
-        console.log(produtId)
-        const deleteProduct = await Product.findByIdAndDelete({_id: produtId});
+        console.log(req.params.productId)
+        const deleteProduct = await Product.findByIdAndDelete({_id: req.params.productId});
 
         res.status(200).json({
             success: true,
