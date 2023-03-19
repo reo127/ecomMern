@@ -145,17 +145,17 @@ const getProfile = async ( req, res ) => {
 
 
 /******************************************************
- * @GET_PROFILE
- * @REQUEST_TYPE GET
- * @route http://localhost:8000/api/auth/profile
- * @description check for token and populate req.user
- * @parameters 
- * @returns User Object
+ * @UPDATE_PROFILE
+ * @REQUEST_TYPE PUT
+ * @route http://localhost:8000/api/auth/updateprofile
+ * @description take phone, address, city, state, zip and update in database
+ * @parameters phone, address, city, state, zip
+ * @returns Updated User Object
  ******************************************************/
 const updateProfile = async( req, res ) => {
     try {
         const {phone, address, city, state, zip} = req.body;
-        const updateProduct = await User.updateMany(
+        const updateUser = await User.updateMany(
             {_id: req.user._id},
             {$set: {
                 "address" : address,
@@ -166,17 +166,17 @@ const updateProfile = async( req, res ) => {
             }}
         )
 
-        if(!(updateProduct.modifiedCount > 0 )){
+        if(!(updateUser.modifiedCount > 0 )){
             res.status(400).json({
                 success: false,
-                updateProduct
+                updateUser
             });
             return;
         }
 
         res.status(200).json({
             success: true,
-            updateProduct
+            updateUser
         });
     } catch (err) {
         console.log(err);
