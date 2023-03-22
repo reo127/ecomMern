@@ -27,6 +27,18 @@ const orderSchema = mongoose.Schema({
         type: Number,
         required: true
     },
+    zip: {
+        type: Number,
+        require: true
+    },
+    state: {
+        type: String,
+        require: true 
+    },
+    catagory: {
+        type: String,
+        require: true
+    },
     coupon: String,
     transactionId: String,
     status: {

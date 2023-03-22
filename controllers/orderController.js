@@ -1,4 +1,6 @@
 const Order = require('../schema/orderSchema');
+const Product = require('../schema/productSchema');
+
 
 /******************************************************
  * @Order Product
@@ -9,18 +11,32 @@ const Order = require('../schema/orderSchema');
  ******************************************************/
 const orderProduct = async (req, res) => {
     try {
-        const { productname, count, user, address, phoneNumber, amount, coupon, transactionId } = req.body;
-        if (!(productname, count, user, address, phoneNumber, amount, transactionId)) {
+        const { productId, count, transactionId } = req.body;
+        if (!(productId, count)) {
             return res.status(400).json({ message: "All filed required" });
         }
+        const product = await Product.findById({ _id: productId });
+
 
         // make the order
-        const order = await Order.create({ productname, count, user, address, phoneNumber, amount, transactionId, coupon })
+        const order = await Order.create({
+              productname : productId,
+              count,
+              user: req.user._id,
+              address: req.user.address,
+              phoneNumber: req.user.phone,
+              amount: product.price,
+              zip: req.user.zip,
+              state: req.user.state,
+              transactionId 
+            })
         if (!order) {
             return res.status(400).json({ message: "order faild", order });
         }
 
-        res.status(200).json({ message: "success", order });
+        return res.status(200).json({ message: "Success", order });
+
+
     } catch (err) {
         console.log(err);
         console.log(err.message);
