@@ -20,9 +20,12 @@ const orderProduct = async (req, res) => {
 
         // make the order
         const order = await Order.create({
-              productname : productId,
+              productId : productId,
+              productName: product.name,
+              catagory: product.catagory,
+              userName : req.user.name,
               count,
-              user: req.user._id,
+              userId: req.user._id,
               address: req.user.address,
               phoneNumber: req.user.phone,
               amount: product.price,
