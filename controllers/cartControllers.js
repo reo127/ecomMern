@@ -4,14 +4,14 @@ const Product = require('../schema/productSchema');
 
 /******************************************************
  * @Add to cart
- * @route http://localhost:8000/api/cart/:userId/:productId
+ * @route http://localhost:8000/api/cart/:productId
  * @description addToCart Controller to add product to cart
  * @parameters productId, userId, count
  * @returns success massage 
  ******************************************************/
 const addToCart = async (req, res) => {
     try {
-        const { userId, productId } = req.params;
+        const { productId } = req.params;
 
         // Find products details
         const prod = await Product.findById({_id: productId})
@@ -20,7 +20,7 @@ const addToCart = async (req, res) => {
         }
 
         const userCart = await User.updateOne(
-            { _id: userId },
+            { _id: req.user._id },
             {
                 $push: {
                     cart: {

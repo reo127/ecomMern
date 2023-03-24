@@ -6,7 +6,7 @@ const { addToCart, removeFromCart } = require('../controllers/cartControllers');
 
 
 // cart
-router.post('/cart/:userId/:productId/', isLoggedIn, addToCart);
+router.post('/cart/:productId/', isLoggedIn, addToCart);
 router.delete('/cart/removefromcart/:userId/:productId', isLoggedIn, removeFromCart);
 
 
