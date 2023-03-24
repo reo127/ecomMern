@@ -13,7 +13,7 @@ const orderProduct = async (req, res) => {
     try {
         const { productId, count, transactionId } = req.body;
         if (!(productId, count)) {
-            return res.status(400).json({ message: "All filed required" });
+            return res.status(400).json({ message: "All filed required " });
         }
         const product = await Product.findById({ _id: productId });
 
