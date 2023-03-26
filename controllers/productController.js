@@ -41,4 +41,23 @@ const getProductByCatagory = async (req, res) => {
 }
 
 
-module.exports = { getProduct, getProductByCatagory }
+/******************************************************
+ * @Search Products
+ * @route http://localhost:8000/api/search/:productName
+ * @description searchProduct controller search product by name and give the search result back to frontend
+ * @parameters pfoductName
+ * @returns products object
+ ******************************************************/
+const searchProduct = async (req, res) => {
+    try {
+        const {productName} = req.params;
+        const searchProducts = await Product.find({name: { $regex:'.*'+productName+'.*'} } ) 
+        res.status(200).json({ message: "success", searchProducts });
+    } catch (err) {
+        console.log(err);
+        console.log(err.message)
+    }
+}
+
+
+module.exports = { getProduct, getProductByCatagory, searchProduct }
