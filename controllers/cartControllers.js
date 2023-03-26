@@ -59,7 +59,7 @@ const removeFromCart = async (req, res) => {
         console.log(userId, productId);
 
         const deleteCart = await User.updateOne(
-            { _id: userId },
+            { _id: req.user._id },
             { $pull: { cart: { _id: productId } } }
         );
 
